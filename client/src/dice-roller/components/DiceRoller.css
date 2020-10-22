@@ -1,0 +1,59 @@
+.header-row {
+	font-weight: bold;
+}
+.header-row, .die-row {
+	display: flex;
+	justify-content: center;
+	text-align: center;
+}
+
+.move {
+	width: 3em;
+}
+.move button {
+	display: block;
+	
+}
+
+.die {
+	width: 5em;
+}
+
+.dice {
+	width: 5em;
+}
+
+.mod {
+	width: 6em;
+}
+.dice input, .mod input {
+	width: 4em;
+	text-align: right;
+}
+
+.features {
+	width: 30em;
+}
+
+.roll {
+	width: 15em;
+}
+.roll-button {
+	display: block;
+	font-size: x-large;
+	font-weight: bold;
+	padding: 1em;
+}
+
+.result {
+	width: 20em;
+}
+.result h2, .result h3 {
+	margin: 0;
+}
+.result .individual-rolls li {
+	display: inline-block;
+	padding: 5px;
+	border: 1px solid #eeeeee;
+	margin: 2px;
+}

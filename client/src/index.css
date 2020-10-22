@@ -1,0 +1,18 @@
+* {
+	box-sizing: border-box;
+}
+body {
+	margin: 0;
+	background: #111111;
+	color: #eeeeee;
+}
+
+ul:not:.bulleted {
+	list-style-type: none;
+	padding-left: none;
+}
+
+input, textarea, select {
+	background: #111111;
+	color: #eeeeee;
+}

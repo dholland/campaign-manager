@@ -1,0 +1,41 @@
+{
+  "name": "campaign-manager",
+  "version": "1.0.0",
+  "description": "A utility for D&D5e players and dungeon masters",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PhoenixTilea/campaign-manager.git"
+  },
+  "keywords": [
+    "dnd",
+    "d&d",
+    "5e",
+    "dnd5e",
+    "d&d5e",
+    "dice",
+    "roller",
+    "encounter",
+    "tracker",
+    "dungeons",
+    "dragons"
+  ],
+  "author": "Sabelyn Thorpe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PhoenixTilea/campaign-manager/issues"
+  },
+  "homepage": "https://github.com/PhoenixTilea/campaign-manager#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-jwt": "^6.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.9",
+    "morgan": "^1.10.0"
+  }
+}
