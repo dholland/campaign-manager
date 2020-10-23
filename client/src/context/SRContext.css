@@ -1,0 +1,8 @@
+#sr-log {
+	position: fixed;
+	left: -15em;
+	width: 1px;
+	height: 1px;
+	padding-left: 2px;
+	overflow: hidden;
+}

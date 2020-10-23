@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import Usercontext from "./UserContext";
+import UserContext from "./UserContext";
 
 const SettingsContext = React.createContext();
 export default SettingsContext;
 
 export function SettingsProvider(props) {
-	const { user, token } = useContext(UserContext);
+	const { user } = useContext(UserContext);
 	const [rows, setRows] = useState(initRows());
 	const [hiddenRows, setHiddenRows] = useState(initHidden());
 	
@@ -16,8 +16,8 @@ export function SettingsProvider(props) {
 		} else {
 			setRows(initRows());
 			setHiddenRows(initHidden());
-		}
-	}, [token]);
+		} // eslint-disable-next-line
+	}, [user.settings]);
 	
 	useEffect(() => {
 		localStorage.setItem("rows", JSON.stringify(rows));
@@ -69,5 +69,5 @@ const defaults = {
 	rows: [20, 4, 6, 8, 10, 12, 100]
 };
 
-const initRows = () => JSON.parse(localStorage.getItem(rows) || "") || defaults.rows;
-const initHidden = () => JSON.parse(localStorage.getItem("hiddenRows") || "") || [];
+const initRows = () => JSON.parse(localStorage.getItem("rows") || "null") || defaults.rows;
+const initHidden = () => JSON.parse(localStorage.getItem("hiddenRows") || "null") || [];

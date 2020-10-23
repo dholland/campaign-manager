@@ -7,11 +7,15 @@ body {
 	color: #eeeeee;
 }
 
-ul:not:.bulleted {
+ul::not:.bulleted {
 	list-style-type: none;
-	padding-left: none;
+	padding-left: 0;
 }
 
+form > label {
+	display: block;
+	padding: 1em;
+}
 input, textarea, select {
 	background: #111111;
 	color: #eeeeee;

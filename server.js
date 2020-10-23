@@ -16,12 +16,13 @@ app.use("/auth", require("./routes/authRouter"));
 
 // Protected routes
 app.use("/api", expressJwt({secret: process.env.SECRET, algorithms: ["HS256"]}));
+app.use("/api/user", require("./routes/userRouter"));
 
 // Catch errors
 app.use((err, req, res, next) => {
 	if (err.name === "UnauthorizedError") {
 		res.status(err.status);
-	} else if (err.statusCode === 200) {
+	} else if (res.statusCode === 200) {
 		res.status(500);
 	}
 	console.error(err.message);

@@ -12,11 +12,12 @@ authRouter.post("/signup", (req, res, next) => {
 			return next(new Error("Sorry, that username is unavailable."));
 		}
 		const newUser = new User(req.body);
+		newUser.displayName = newUser.username;
 		newUser.save((err, saved) => {
 			if (err) {
 				return next(err);
 			}
-			const token = jwt.sign(saved.withoutPassword(), {secret: process.env.SECRET});
+			const token = jwt.sign(saved.withoutPassword(), process.env.SECRET);
 			return res.status(201).send({user: saved.withoutPassword(), token });
 		});
 	});
@@ -37,7 +38,7 @@ authRouter.post("/login", (req, res, next) => {
 				res.status(404);
 				return next(new Error(errMsg));
 			}
-			const token = jwt.sign(user.withoutPassword(), {secret: process.env.SECRET});
+			const token = jwt.sign(user.withoutPassword(), process.env.SECRET);
 		res.status(201).send({user: user.withoutPassword(), token });
 		});
 	});

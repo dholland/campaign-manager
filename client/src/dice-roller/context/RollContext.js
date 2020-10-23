@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import SRContext from "../../context/SRContext";
 import RollSettings from "../RollSettings";
 
 const RollContext = React.createContext();
 export default RollContext;
 
 export function RollProvider(props) {
+	const { rollMsg } = useContext(SRContext);
 	const [d20, setD20] = useState(new RollSettings(20));
 	const [d4, setD4] = useState(new RollSettings(4));
 	const [d6, setD6] = useState(new RollSettings(6));
@@ -15,50 +17,50 @@ export function RollProvider(props) {
 	const [history, setHistory] = useState([]);
 	
 	const dieMap = new Map([
-		[20, setD20],
-		[4, setD4],
-		[6, setD6],
-		[8, setD8],
-		[10, setD10],
-		[12, setD12],
-		[100, setD100]
+		[20, [d20, setD20]],
+		[4, [d4, setD4]],
+		[6, [d6, setD6]],
+		[8, [d8, setD8]],
+		[10, [d10, setD10]],
+		[12, [d12, setD12]],
+		[100, [d100, setD100]]
 	]);
 	
 	const roll = (die, settings) => {
-		dieMap.get(die)(prevSettings => {
-			for (let prop in settings) {
-				prevSettings.setProp(prop, settings[prop]);
+		const r = dieMap.get(die)[0];
+		for (let prop in settings) {
+			r.setProp(prop, settings[prop]);
+		}
+		const rolled = r.roll();
+		rollMsg(rolled.result);
+		setHistory(prevHistory => {
+			const updated = [rolled, ...prevHistory];
+			if (updated.length > 10) {
+				updated.pop();
 			}
-			let rolled = prevSettings.roll();
-			setHistory(prevHistory => {
-				const h = [rolled, ...prevHistory];
-				if (h.length > 10) {
-					h.pop();
-				}
-				return h;
-			});
-			return rolled;
+			return updated;
 		});
+		dieMap.get(die)[1](rolled);
 	};
 	
 	const changeSettings = (die, prop, value) => {
-		dieMap.get(die)(prevSettings => prevSettings.setProp(prop, value));
+		dieMap.get(die)[1](prevSettings => prevSettings.setProp(prop, value));
 	};
 	
 	const addFeature = (die, feature) => {
-		dieMap.get(die)(prevSettings => prevSettings.addFeature(feature));
+		dieMap.get(die)[1](prevSettings => prevSettings.addFeature(feature));
 	};
 	
 	const removeFeature = (die, featureId) => {
-		dieMap.get(die)(prevSettings => prevSettings.removeFeature(featureId));
+		dieMap.get(die)[1](prevSettings => prevSettings.removeFeature(featureId));
 	};
 	
 	const enableFeature = (die, featureId) => {
-		dieMap.get(die)(prevSettings => prevSettings.EnableFeature(featureId));
+		dieMap.get(die)[1](prevSettings => prevSettings.EnableFeature(featureId));
 	};
 	
 	const disableFeature = (die, featureId) => {
-		dieMap.get(die)(prevSettings => prevSettings.disableFeature(featureId));
+		dieMap.get(die)[1](prevSettings => prevSettings.disableFeature(featureId));
 	};
 	
 	const value = {d20, d4, d6, d8, d10, d12, d100, history,

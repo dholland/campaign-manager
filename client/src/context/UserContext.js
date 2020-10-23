@@ -28,9 +28,9 @@ export function UserProvider({children}) {
 	
 	useEffect(() => {
 		if (auth.token) {
-			userAxios.get("/user").then(response => (
+			userAxios.get("/api/user").then(response => (
 				setAuth(prevAuth => ({...prevAuth, user: response.data}))
-			).catch(err => {
+			)).catch(err => {
 				console.dir(err);
 				logout();
 			});
@@ -38,6 +38,7 @@ export function UserProvider({children}) {
 	}, []);
 	
 	const signup = creds => {
+		setAuthError(null);
 		axios.post("/auth/signup", creds).then(response => {
 			const { user, token } = response.data;
 			setAuth({user, token});
@@ -52,7 +53,8 @@ export function UserProvider({children}) {
 	};
 	
 	const login = creds => {
-		axios.post("/auth/signup", creds).then(response => {
+		setAuthError(null);
+		axios.post("/auth/login", creds).then(response => {
 			const { user, token } = response.data;
 			setAuth({user, token});
 			localStorage.setItem("token", token);
@@ -70,7 +72,11 @@ export function UserProvider({children}) {
 		setAuth(initState());
 	};
 	
-	const value = {...auth, signup, login, logout };
+	const clearAuthError = () => {
+		setAuthError(null);
+	};
+	
+	const value = {...auth, authError, clearAuthError, signup, login, logout };
 	return (
 		<UserContext.Provider value={value}>
 			{children}

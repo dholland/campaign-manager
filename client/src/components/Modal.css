@@ -1,0 +1,45 @@
+.overylay {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 4;
+	background-color: black;
+	opacity: 75%;
+}
+
+.modal-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: #111111;
+	border: 2px groove #eeeeee;
+}
+
+.modal-header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: #222222;
+	padding: 1em;
+}
+
+.modal-x-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 10px;
+	border: 1px solid #eeeeee;
+}
+
+.modal-body {
+	padding: 2em;
+}
+
+.modal-footer {
+	display: flex;
+	justify-content: flex-end;
+}

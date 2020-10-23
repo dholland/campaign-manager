@@ -2,7 +2,7 @@ import React, { useContext, useRef, useState } from "react";
 import RollContext from "../context/RollContext";
 
 export default function DieRow({die, moveUp, moveDown}) {
-	const { roll, enableFeature, disableFeature } = useContext(RollContext);
+	const { roll } = useContext(RollContext);
 	const settings = useContext(RollContext)[`d${die}`];
 	const [fields, setFields] = useState({
 		dice: settings.dice,
@@ -17,6 +17,7 @@ export default function DieRow({die, moveUp, moveDown}) {
 		roll(die, fields);
 	};
 	
+	/*
 	const handleToggleFeature = (id, enable) => {
 		if (enable) {
 			enableFeature(die, id);
@@ -24,6 +25,7 @@ export default function DieRow({die, moveUp, moveDown}) {
 			disableFeature(die, id);
 		}
 	};
+	*/
 	
 	const handleChange = e => {
 		const {name, value} = e.target;
@@ -33,8 +35,8 @@ export default function DieRow({die, moveUp, moveDown}) {
 	return (
 		<form className="die-row" role="row" onSubmit={handleRoll}>
 			<div className="move" role="cell">
-			{(moveUp) && <button onClick={() => moveUp(die)} title="Move up" aria-label={`Move the d${die} row up`}>&uarr;</button>}
-				{(moveDown) && <button onClick={() => moveDown(die)} title="Move down" aria-label={`Move the d${die} row down`}>&darr;</button>}
+			{(moveUp) && <button type="button" onClick={() => moveUp(die)} title="Move up" aria-label={`Move the d${die} row up`}>&uarr;</button>}
+				{(moveDown) && <button type="button" onClick={() => moveDown(die)} title="Move down" aria-label={`Move the d${die} row down`}>&darr;</button>}
 			</div>
 			<div className="die" role="rowheader">
 				<h1>{`d${die}`}</h1>
@@ -50,7 +52,7 @@ export default function DieRow({die, moveUp, moveDown}) {
 			
 			</div>
 			<div className="roll" role="cell" role-description="roll type">
-				<button className="roll-button" ref={rollBtn}>Roll</button>
+				<button type="submit" className="roll-button" ref={rollBtn}>Roll</button>
 				{(die === 20) ? <div className="roll-type" role="radiogroup">
 						<label>
 							<input type="radio" name="type" value="normal" checked={fields.type === "normal"} onChange={handleChange} />
